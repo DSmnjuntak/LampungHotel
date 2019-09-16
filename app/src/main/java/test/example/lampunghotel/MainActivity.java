@@ -37,22 +37,6 @@ public class MainActivity extends AppCompatActivity {
         rvHotels.setLayoutManager(new LinearLayoutManager(this));
         ListHotelAdapter listHeroAdapter = new ListHotelAdapter(list);
         rvHotels.setAdapter(listHeroAdapter);
-
-        listHeroAdapter.setOnItemClickCallback(new ListHotelAdapter.OnItemClickCallback() {
-            @Override
-            public void onItemClicked(Hotel data) {
-                showSelectedHotel(data);
-            }
-        });
-    }
-
-    private void showSelectedHotel(Hotel hotel) {
-        Toast.makeText(this, "Kamu memilih " + hotel.getName(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Detail.class);
-        intent.putExtra(Detail.EXTRA_NAME, hotel.getName());
-        intent.putExtra(Detail.EXTRA_DETAIL,hotel.getDetail());
-        intent.putExtra(Detail.EXTRA_IMAGE,hotel.getPhoto());
-        startActivity(intent);
     }
 
     private void setActionBarTitle(String title) {
