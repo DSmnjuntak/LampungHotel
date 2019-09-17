@@ -1,31 +1,68 @@
 package test.example.lampunghotel;
 
-public class Hotel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Hotel implements Parcelable {
     private String name;
     private String detail;
     private String photo;
 
-    public String getName() {
+    private Hotel(Parcel in) {
+        name = in.readString();
+        detail = in.readString();
+        photo = in.readString();
+    }
+
+    Hotel() {
+
+    }
+
+    public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
+        @Override
+        public Hotel createFromParcel(Parcel in) {
+            return new Hotel(in);
+        }
+
+        @Override
+        public Hotel[] newArray(int size) {
+            return new Hotel[size];
+        }
+    };
+
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
-    public String getDetail() {
+    String getDetail() {
         return detail;
     }
 
-    public void setDetail(String detail) {
+    void setDetail(String detail) {
         this.detail = detail;
     }
 
-    public String getPhoto() {
+    String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(detail);
+        dest.writeString(photo);
     }
 }

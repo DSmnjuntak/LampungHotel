@@ -1,5 +1,6 @@
 package test.example.lampunghotel;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +19,8 @@ import java.util.ArrayList;
 
 public class ListHotelAdapter extends RecyclerView.Adapter<ListHotelAdapter.ListViewHolder> {
     private ArrayList<Hotel> listHotel;
-    private OnItemClickCallback onItemClickCallback;
 
-    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback;
-    }
-
-    public ListHotelAdapter(ArrayList<Hotel> list) {
+    ListHotelAdapter(ArrayList<Hotel> list) {
         this.listHotel = list;
     }
 
@@ -36,11 +32,11 @@ public class ListHotelAdapter extends RecyclerView.Adapter<ListHotelAdapter.List
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ListHotelAdapter.ListViewHolder holder, int position) {
-        Hotel hotel = listHotel.get(position);
+    public void onBindViewHolder(@NonNull final ListHotelAdapter.ListViewHolder holder, final int position) {
+        final Hotel hotel = listHotel.get(position);
         Glide.with(holder.itemView.getContext())
                 .load(hotel.getPhoto())
-                .apply(new RequestOptions().override(200, 200))
+                .apply(new RequestOptions().override(55, 55))
                 .into(holder.imgPhoto);
         holder.tvName.setText(hotel.getName());
         holder.tvDetail.setText(hotel.getDetail());
@@ -48,7 +44,16 @@ public class ListHotelAdapter extends RecyclerView.Adapter<ListHotelAdapter.List
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickCallback.onItemClicked(listHotel.get(holder.getAdapterPosition()));
+                Intent intent = new Intent(holder.itemView.getContext(), Detail.class);
+
+                Hotel model = new Hotel();
+                model.setName(hotel.getName());
+                model.setDetail(hotel.getDetail());
+                model.setPhoto(hotel.getPhoto());
+
+                intent.putExtra(Detail.EXTRA_DATA, model);
+
+                holder.itemView.getContext().startActivity(intent);
             }
         });
     }
@@ -67,9 +72,5 @@ public class ListHotelAdapter extends RecyclerView.Adapter<ListHotelAdapter.List
             tvName = itemView.findViewById(R.id.tv_hotel_name);
             tvDetail = itemView.findViewById(R.id.tv_hotel_detail);
         }
-    }
-
-    public interface OnItemClickCallback {
-        void onItemClicked(Hotel data);
     }
 }

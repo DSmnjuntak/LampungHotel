@@ -14,9 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import static android.net.Uri.parse;
 
 public class Detail extends AppCompatActivity {
-    public static final String EXTRA_NAME = "extra_name";
-    public static final String EXTRA_DETAIL = "extra_detail";
-    public static final String EXTRA_IMAGE = "extra_image";
+    public static final String EXTRA_DATA = "extra_data";
 
     @SuppressLint("Assert")
     @Override
@@ -24,19 +22,23 @@ public class Detail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        TextView tvname = findViewById(R.id.tv_hotel_name);
-        String name = getIntent().getStringExtra(EXTRA_NAME);
-        tvname.setText(name);
+        Hotel hotel = getIntent().getParcelableExtra(EXTRA_DATA);
+        TextView tvname = findViewById(R.id.tv_hotel_name_detail);
+//        String name = getIntent().getStringExtra(EXTRA_NAME);
+        tvname.setText(hotel.getName());
 
-        TextView tvdetail = findViewById(R.id.tv_hotel_detail);
-        String detail = getIntent().getStringExtra(EXTRA_DETAIL);
+        TextView tvdetail = findViewById(R.id.tv_item_detail);
+        String detail = hotel.getDetail();
+//        if (detail == null) {
+//            detail = "Detail Hotel cannot null";
+//        }
         tvdetail.setText(detail);
 
-        ImageView tvimg = findViewById(R.id.img_hotel_photo);
-        String image = getIntent().getStringExtra(EXTRA_IMAGE);
+        ImageView tvimg = findViewById(R.id.img_hotel_photo_detail);
+        String image = hotel.getPhoto();
         Glide.with(this)
                 .load(image)
-                .apply(new RequestOptions().override(200, 200))
+                .apply(new RequestOptions().override(55, 55))
                 .into(tvimg);
     }
 }

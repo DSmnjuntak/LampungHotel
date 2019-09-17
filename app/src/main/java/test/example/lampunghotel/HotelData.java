@@ -2,8 +2,8 @@ package test.example.lampunghotel;
 
 import java.util.ArrayList;
 
-public class HotelData {
-    public static String[][] data = new String[][]{
+class HotelData {
+    private static String[][] data = new String[][]{
             {"Swiss-Belhotel Lampung", "Conveniently located a 10-minute drive from the city centre and Central Plaza as well as Kartini malls, Swiss-Belhotel Lampung offers well appointed rooms and free WiFi access throughout.\n" +
                     "\n" +
                     "All the elegant rooms are air-conditioned and fitted with a flat-screen cable TV, safety deposit box and a seating area. There are also an electric kettle and a minibar. The en suite bathroom comes with hot/cold shower, hairdryer and slippers.\n" +
@@ -104,10 +104,9 @@ public class HotelData {
                     "\n" +
                     "Tersedia juga sarapan prasmanan atau Amerika.\n" +
                     "\n" +
-                    "Fasilitas lainnya adalah teras.", "https://s-ec.bstatic.com/images/hotel/max500/207/207506921.jpg"},
-            //{"", "", ""},
+                    "Fasilitas lainnya adalah teras.", "https://s-ec.bstatic.com/images/hotel/max500/207/207506921.jpg"}
     };
-    public static ArrayList<Hotel> getListData(){
+    static ArrayList<Hotel> getListData(){
         ArrayList<Hotel> list = new ArrayList<>();
         for (String[] aData : data) {
             Hotel hotel = new Hotel();
